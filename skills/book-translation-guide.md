@@ -10,7 +10,13 @@ If the book is in PDF, EPUB, or other formats, it must first be converted to Mar
 
 ## Overview
 
-This guide provides a systematic approach to translating entire books from English to Traditional Chinese (Taiwan) using the `markdown-zh-tw-translator` agent.
+This guide provides a systematic approach to translating entire books between **any language pair** using Claude Code translator agents.
+
+**Supported translations include:**
+- English → Traditional Chinese, Japanese, Korean, Spanish, French, German, etc.
+- Any source language → Any target language
+
+The workflow is language-agnostic; you simply need a translator agent configured for your target language.
 
 ---
 
@@ -36,9 +42,15 @@ This reveals:
 ## Step 2: Create Directory Structure
 
 ```bash
-mkdir -p "Book-Chapters"        # For original chapter files
-mkdir -p "Book-Chapters-ZH-TW"  # For translated chapter files
+mkdir -p "Book-Chapters"            # For original chapter files
+mkdir -p "Book-Chapters-Translated" # For translated chapter files
 ```
+
+You can name the translated folder based on your target language:
+- `Book-Chapters-ZH-TW` (Traditional Chinese)
+- `Book-Chapters-JA` (Japanese)
+- `Book-Chapters-ES` (Spanish)
+- etc.
 
 ---
 
@@ -79,8 +91,8 @@ sed -n '232,471p' "07-Large-Chapter.md" > "07b-Part2.md"
 After translation, merge the parts:
 
 ```bash
-cat "Book-ZH-TW/07a-Part1.md" "Book-ZH-TW/07b-Part2.md" > "Book-ZH-TW/07-Large-Chapter.md"
-rm "Book-ZH-TW/07a-Part1.md" "Book-ZH-TW/07b-Part2.md"
+cat "Book-Translated/07a-Part1.md" "Book-Translated/07b-Part2.md" > "Book-Translated/07-Large-Chapter.md"
+rm "Book-Translated/07a-Part1.md" "Book-Translated/07b-Part2.md"
 ```
 
 ---
@@ -105,7 +117,9 @@ Benefits:
 
 ## Step 6: Invoke Translation Agent
 
-For each chapter, call the translation agent:
+For each chapter, call the appropriate translation agent based on your target language:
+
+### Example: English → Traditional Chinese (Taiwan)
 
 ```
 Task(
@@ -115,6 +129,38 @@ Task(
            from English to Traditional Chinese (繁體中文).
 
            Save the translated file to /path/to/Book-Chapters-ZH-TW/XX-Chapter.md
+
+           Use your translation guidelines to ensure high quality translation
+           while preserving markdown formatting."
+)
+```
+
+### Example: English → Japanese
+
+```
+Task(
+  subagent_type: "markdown-ja-translator",
+  description: "Translate Chapter X to Japanese",
+  prompt: "Translate the markdown file at /path/to/Book-Chapters/XX-Chapter.md
+           from English to Japanese (日本語).
+
+           Save the translated file to /path/to/Book-Chapters-JA/XX-Chapter.md
+
+           Use your translation guidelines to ensure high quality translation
+           while preserving markdown formatting."
+)
+```
+
+### Example: French → English
+
+```
+Task(
+  subagent_type: "markdown-en-translator",
+  description: "Translate Chapter X to English",
+  prompt: "Translate the markdown file at /path/to/Book-Chapters/XX-Chapter.md
+           from French to English.
+
+           Save the translated file to /path/to/Book-Chapters-EN/XX-Chapter.md
 
            Use your translation guidelines to ensure high quality translation
            while preserving markdown formatting."
@@ -134,7 +180,7 @@ After each batch, verify translations are complete:
 tail -5 "Book-Chapters/01-Chapter.md"
 
 # Compare translated ending
-tail -5 "Book-Chapters-ZH-TW/01-Chapter.md"
+tail -5 "Book-Chapters-Translated/01-Chapter.md"
 ```
 
 Ensure the final sentences match in meaning.
@@ -144,7 +190,7 @@ For bulk verification:
 ```bash
 for i in 00 01 02 03 04; do
   echo "=== $i ==="
-  tail -3 "Book-Chapters-ZH-TW/$i-"*.md
+  tail -3 "Book-Chapters-Translated/$i-"*.md
   echo ""
 done
 ```
@@ -153,16 +199,32 @@ done
 
 ## Translation Quality Standards
 
-The `markdown-zh-tw-translator` agent should follow these conventions:
+General principles that apply to **all languages**:
 
 | Element | Handling |
 |---------|----------|
-| Personal names | Keep original (Donald Trump, Einstein) |
-| Technical terms | Bilingual: 人工智慧 (AI), 演算法 (Algorithm) |
-| Book titles | Use official translations: 《人類大歷史》(Sapiens) |
-| Taiwan conventions | Use 軟體, 程式, 資料, 網路 (not Mainland terms) |
+| Personal names | Keep original (with exceptions based on target language conventions) |
+| Technical terms | Bilingual format recommended: 翻訳 (Translation) |
 | Markdown formatting | Preserve all: headers, images, links, footnotes |
+| Code blocks | Never translate code |
 | LaTeX/Math | Keep original notation |
+
+### Language-Specific Considerations
+
+**Traditional Chinese (Taiwan):**
+- Use Taiwan conventions: 軟體, 程式, 資料, 網路
+
+**Japanese:**
+- Use appropriate politeness levels
+- カタカナ for loanwords
+
+**Spanish:**
+- Consider regional variations (Spain vs Latin America)
+- Appropriate formality (tú vs usted)
+
+**German:**
+- Compound word handling
+- Formal vs informal address (Sie vs du)
 
 ---
 
@@ -209,14 +271,17 @@ Original File (book.md)
 - List output directory to identify gaps
 - Re-translate missing files individually
 
+### Wrong Language Conventions
+- Create a custom translator agent with specific rules for your target language/region
+
 ---
 
-## Example: Real Book Translation
+## Example: Real Book Translations
 
-| Book | Original Size | Chapters | Translation Time |
-|------|---------------|----------|------------------|
-| 21 Lessons for the 21st Century | 714 KB | 25 | ~30 minutes |
-| Homo Deus | 960 KB | 16 | ~40 minutes |
+| Book | Source | Target | Size | Chapters | Time |
+|------|--------|--------|------|----------|------|
+| 21 Lessons for the 21st Century | EN | ZH-TW | 714 KB | 25 | ~30 min |
+| Homo Deus | EN | ZH-TW | 960 KB | 16 | ~40 min |
 
 ---
 
@@ -226,4 +291,5 @@ Original File (book.md)
 2. Back up original files before starting
 3. Keep a checklist of chapters to track progress
 4. For books >1MB, consider translating over multiple sessions
-5. The `markdown-zh-tw-translator` agent must be properly configured before use
+5. Create or configure a translator agent for your target language before starting
+6. The workflow is the same regardless of language pair - only the translator agent changes

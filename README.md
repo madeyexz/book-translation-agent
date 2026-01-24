@@ -1,6 +1,19 @@
 # Book Translation Agent for Claude Code
 
-A systematic workflow for translating entire books from English to Traditional Chinese (Taiwan) using Claude Code agents.
+A systematic workflow for translating entire books between **any languages** using Claude Code agents.
+
+## Supported Languages
+
+This workflow supports translation between **any language pair**. Examples:
+
+- English → Traditional Chinese (Taiwan)
+- English → Japanese
+- English → Spanish
+- French → English
+- German → Korean
+- Any source language → Any target language
+
+The included example agent translates English → Traditional Chinese (Taiwan), but you can easily create agents for other language pairs.
 
 ## Prerequisites
 
@@ -21,9 +34,9 @@ This agent skill enables you to:
 
 1. **Analyze** a book's structure (chapters, sections, headings)
 2. **Split** the book into manageable chapter files
-3. **Translate** each chapter using the `markdown-zh-tw-translator` agent
+3. **Translate** each chapter using a translator agent
 4. **Verify** translation completeness
-5. **Produce** a fully translated book in Traditional Chinese
+5. **Produce** a fully translated book in your target language
 
 ## Components
 
@@ -31,7 +44,7 @@ This agent skill enables you to:
 book-translation-agent/
 ├── README.md                           # This file
 ├── agents/
-│   └── markdown-zh-tw-translator.md    # Translation agent prompt
+│   └── markdown-zh-tw-translator.md    # Example: EN→ZH-TW translator agent
 └── skills/
     └── book-translation-guide.md       # Step-by-step workflow guide
 ```
@@ -103,22 +116,90 @@ More content...
 
 ### 2. Run the Translation
 
-In Claude Code, ask:
+In Claude Code, specify your source and target languages:
 
 ```
-Translate the book at /path/to/book.md to Traditional Chinese using the book translation workflow.
+Translate the book at /path/to/book.md from English to Traditional Chinese using the book translation workflow.
 ```
 
-## Translation Quality
+Other examples:
 
-The translator agent follows these conventions:
+```
+Translate the book at /path/to/book.md from English to Japanese.
+```
+
+```
+Translate the book at /path/to/book.md from French to English.
+```
+
+```
+Translate the book at /path/to/book.md from German to Spanish.
+```
+
+---
+
+## Creating Custom Translator Agents
+
+The included `markdown-zh-tw-translator.md` is an example for English → Traditional Chinese. To create a translator for other language pairs:
+
+### 1. Copy and Rename the Template
+
+```bash
+cp ~/.claude/agents/markdown-zh-tw-translator.md ~/.claude/agents/markdown-ja-translator.md
+```
+
+### 2. Modify the Agent
+
+Edit the new file and change:
+
+- `name`: e.g., `markdown-ja-translator`
+- `description`: Update for your language pair
+- Language-specific conventions in the prompt
+- Quality standards for your target language
+
+### Example: Japanese Translator Agent
+
+Key modifications for a Japanese translator:
+
+```markdown
+name: markdown-ja-translator
+description: "Translates markdown content to Japanese..."
+
+## Quality Standards
+1. Use appropriate politeness levels (敬語/丁寧語/普通体)
+2. Handle technical terms: カタカナ for loanwords, or 日本語 (English)
+3. Maintain natural Japanese sentence structure
+```
+
+### Example: Spanish Translator Agent
+
+Key modifications for a Spanish translator:
+
+```markdown
+name: markdown-es-translator
+description: "Translates markdown content to Spanish..."
+
+## Quality Standards
+1. Use appropriate formality (tú vs usted)
+2. Handle regional variations if needed (Spain vs Latin America)
+3. Technical terms: término en español (English term)
+```
+
+---
+
+## Translation Quality Guidelines
+
+General principles that apply to all languages:
 
 | Element | Handling |
 |---------|----------|
-| Personal names | Keep original (e.g., "John Smith" stays as "John Smith") |
-| Technical terms | Bilingual format: 機器學習 (Machine Learning) |
-| Taiwan conventions | Uses 軟體, 程式, 資料, 網路 |
-| Markdown | Preserves all formatting |
+| Personal names | Keep original (language-dependent exceptions apply) |
+| Technical terms | Bilingual format recommended: 翻譯 (Translation) |
+| Markdown | Preserve all formatting |
+| Code blocks | Never translate code |
+| Cultural references | Adapt appropriately for target audience |
+
+---
 
 ## Workflow Overview
 
@@ -138,12 +219,16 @@ Verify Completeness (compare endings)
 Translated Book (multiple .md files)
 ```
 
+---
+
 ## Tested Results
 
-| Book | Original Size | Chapters | Time |
-|------|---------------|----------|------|
-| 21 Lessons for the 21st Century | 714 KB | 25 | ~30 min |
-| Homo Deus | 960 KB | 16 | ~40 min |
+| Book | Source | Target | Size | Chapters | Time |
+|------|--------|--------|------|----------|------|
+| 21 Lessons for the 21st Century | EN | ZH-TW | 714 KB | 25 | ~30 min |
+| Homo Deus | EN | ZH-TW | 960 KB | 16 | ~40 min |
+
+---
 
 ## Troubleshooting
 
@@ -156,10 +241,18 @@ Split large chapters (>60KB) into smaller parts.
 ### Incomplete Translation
 Re-run translation for the specific chapter; verify by comparing file endings.
 
+### Wrong Language Conventions
+Create a custom translator agent with specific rules for your target language/region.
+
+---
+
 ## License
 
 MIT License - Feel free to use, modify, and distribute.
 
 ## Contributing
 
-Pull requests welcome! Please ensure any changes maintain compatibility with Claude Code's agent system.
+Pull requests welcome! Especially:
+- New translator agents for different language pairs
+- Improvements to the workflow
+- Bug fixes and documentation updates
