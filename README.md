@@ -36,26 +36,56 @@ book-translation-agent/
     └── book-translation-guide.md       # Step-by-step workflow guide
 ```
 
-## Quick Start
+## Installation
 
-### 1. Install the Agent
+### Option 1: Ask Your Agent to Install (Recommended)
 
-Copy the agent file to your Claude Code agents directory:
+Simply open Claude Code and say:
+
+```
+Install the book translation agent from https://github.com/madeyexz/book-translation-agent
+```
+
+Your Claude Code agent will:
+1. Clone the repository
+2. Copy the agent and skill files to the correct locations
+3. Confirm the installation is complete
+
+### Option 2: Manual Installation
+
+**Step 1**: Clone this repository
 
 ```bash
+git clone https://github.com/madeyexz/book-translation-agent.git
+cd book-translation-agent
+```
+
+**Step 2**: Copy the agent file
+
+```bash
+mkdir -p ~/.claude/agents
 cp agents/markdown-zh-tw-translator.md ~/.claude/agents/
 ```
 
-### 2. Install the Skill
-
-Copy the skill guide to your Claude Code skills directory:
+**Step 3**: Copy the skill file
 
 ```bash
 mkdir -p ~/.claude/skills
 cp skills/book-translation-guide.md ~/.claude/skills/
 ```
 
-### 3. Prepare Your Book
+**Step 4**: Verify installation
+
+```bash
+ls ~/.claude/agents/markdown-zh-tw-translator.md
+ls ~/.claude/skills/book-translation-guide.md
+```
+
+---
+
+## Quick Start
+
+### 1. Prepare Your Book
 
 Ensure your book is in Markdown format with proper `#` headings:
 
@@ -71,7 +101,7 @@ Content here...
 More content...
 ```
 
-### 4. Run the Translation
+### 2. Run the Translation
 
 In Claude Code, ask:
 
