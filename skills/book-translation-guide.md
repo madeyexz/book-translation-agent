@@ -173,7 +173,52 @@ Run 5 agents in parallel for each batch.
 
 ## Step 7: Verify Translation Completeness
 
-After each batch, verify translations are complete:
+After all chapters are translated, perform **side-by-side verification** comparing the last 10 lines of each chapter between original and translated versions.
+
+### Comprehensive Side-by-Side Verification
+
+For each chapter, compare original and translated endings in parallel:
+
+```bash
+echo "=== 01-Chapter ===" && \
+echo "-- Original --" && \
+tail -10 "Book-Chapters/01-Chapter.md" && \
+echo -e "\n-- Translated --" && \
+tail -10 "Book-Chapters-Translated/01-Chapter.md"
+```
+
+Run this for **all chapters in parallel** to verify:
+- Translation reaches the end of each chapter (no truncation)
+- Final paragraphs match in meaning
+- Reference links and citations are preserved
+- Formatting (headers, lists, links) is intact
+
+### Bulk Verification Script
+
+```bash
+for chapter in Book-Chapters/*.md; do
+  name=$(basename "$chapter")
+  echo "=== $name ==="
+  echo "-- Original --"
+  tail -10 "$chapter"
+  echo -e "\n-- Translated --"
+  tail -10 "Book-Chapters-Translated/$name"
+  echo -e "\n"
+done
+```
+
+### What to Check
+
+| Element | Verification |
+|---------|--------------|
+| Content completeness | Last sentences match in meaning |
+| Reference links | URLs preserved unchanged |
+| Section numbers | `[1a]`, `[2b3]` etc. preserved |
+| Proper nouns | Names unchanged in both versions |
+| Technical terms | Bilingual format present: 中文 (English) |
+| Markdown formatting | Headers, links, emphasis intact |
+
+### Quick Verification (Single Chapter)
 
 ```bash
 # Compare original ending
@@ -181,18 +226,6 @@ tail -5 "Book-Chapters/01-Chapter.md"
 
 # Compare translated ending
 tail -5 "Book-Chapters-Translated/01-Chapter.md"
-```
-
-Ensure the final sentences match in meaning.
-
-For bulk verification:
-
-```bash
-for i in 00 01 02 03 04; do
-  echo "=== $i ==="
-  tail -3 "Book-Chapters-Translated/$i-"*.md
-  echo ""
-done
 ```
 
 ---
@@ -278,10 +311,11 @@ Original File (book.md)
 
 ## Example: Real Book Translations
 
-| Book | Source | Target | Size | Chapters | Time |
-|------|--------|--------|------|----------|------|
-| 21 Lessons for the 21st Century | EN | ZH-TW | 714 KB | 25 | ~30 min |
-| Homo Deus | EN | ZH-TW | 960 KB | 16 | ~40 min |
+| Book | Source | Target | Size | Chapters |
+|------|--------|--------|------|----------|
+| 21 Lessons for the 21st Century | EN | ZH-TW | 714 KB | 25 |
+| Homo Deus | EN | ZH-TW | 960 KB | 16 |
+| Augmenting Human Intellect (Engelbart, 1962) | EN | ZH-TW | 322 KB | 9 |
 
 ---
 
