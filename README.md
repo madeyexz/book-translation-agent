@@ -1,6 +1,6 @@
-# Claude Code Skills & Agents
+# Ian's Skills & Agents
 
-A personal collection of skills and agents for Claude Code.
+A personal collection of skills and agents for AI coding assistants.
 
 ## What's Inside
 
@@ -15,16 +15,6 @@ ian-skills-agents/
 ```
 
 ## Installation
-
-### Option 1: Ask Claude Code to Install (Recommended)
-
-```
-Install skills and agents from https://github.com/madeyexz/ian-skills-agents
-```
-
-Claude Code will clone the repo and copy files to the correct locations.
-
-### Option 2: Manual Installation
 
 ```bash
 git clone https://github.com/madeyexz/ian-skills-agents.git
@@ -59,7 +49,7 @@ Design principles from Bret Victor's "Magic Ink" for building software that help
 
 ### Book Translation Guide
 
-A systematic workflow for translating entire books between any language pairs using Claude Code agents.
+A systematic workflow for translating entire books between any language pairs using AI agents.
 
 **Workflow**:
 1. Analyze book structure (grep headings)
@@ -116,15 +106,6 @@ model: inherit
 
 [Agent instructions here]
 ```
-
----
-
-## Contributing
-
-Pull requests welcome for:
-- New skills (design principles, workflows, guides)
-- New agents (translators, analyzers, generators)
-- Improvements to existing content
 
 ---
 
