@@ -1,6 +1,6 @@
 # Ian's Skills & Agents
 
-A personal collection of skills and agents for AI coding assistants.
+Skills and agents I use with AI coding assistants.
 
 ## What's Inside
 
