@@ -5,7 +5,7 @@ A personal collection of skills and agents for Claude Code.
 ## What's Inside
 
 ```
-claude-skills-agents/
+ian-skills-agents/
 ├── agents/                    # Custom agents for specialized tasks
 │   └── markdown-zh-tw-translator.md
 ├── skills/                    # Workflow guides and design principles
@@ -19,7 +19,7 @@ claude-skills-agents/
 ### Option 1: Ask Claude Code to Install (Recommended)
 
 ```
-Install skills and agents from https://github.com/madeyexz/claude-skills-agents
+Install skills and agents from https://github.com/madeyexz/ian-skills-agents
 ```
 
 Claude Code will clone the repo and copy files to the correct locations.
@@ -27,8 +27,8 @@ Claude Code will clone the repo and copy files to the correct locations.
 ### Option 2: Manual Installation
 
 ```bash
-git clone https://github.com/madeyexz/claude-skills-agents.git
-cd claude-skills-agents
+git clone https://github.com/madeyexz/ian-skills-agents.git
+cd ian-skills-agents
 
 # Install agents
 mkdir -p ~/.claude/agents
