@@ -1,258 +1,133 @@
-# Book Translation Agent for Claude Code
+# Claude Code Skills & Agents
 
-A systematic workflow for translating entire books between **any languages** using Claude Code agents.
+A personal collection of skills and agents for Claude Code.
 
-## Supported Languages
-
-This workflow supports translation between **any language pair**. Examples:
-
-- English → Traditional Chinese (Taiwan)
-- English → Japanese
-- English → Spanish
-- French → English
-- German → Korean
-- Any source language → Any target language
-
-The included example agent translates English → Traditional Chinese (Taiwan), but you can easily create agents for other language pairs.
-
-## Prerequisites
-
-**This workflow only works with books that have been parsed to Markdown format.**
-
-The source file must be a `.md` file with proper heading structure using `#` symbols. If your book is in PDF, EPUB, or other formats, you must first convert it to Markdown before using this translation workflow.
-
-### Recommended Tools for Converting to Markdown
-
-- [Pandoc](https://pandoc.org/) - Universal document converter
-- [Calibre](https://calibre-ebook.com/) - E-book management (for EPUB)
-- PDF to Markdown converters (various online tools)
-- OCR tools for scanned books
-
-## What This Does
-
-This agent skill enables you to:
-
-1. **Analyze** a book's structure (chapters, sections, headings)
-2. **Split** the book into manageable chapter files
-3. **Translate** each chapter using a translator agent
-4. **Verify** translation completeness
-5. **Produce** a fully translated book in your target language
-
-## Components
+## What's Inside
 
 ```
-book-translation-agent/
-├── README.md                           # This file
-├── agents/
-│   └── markdown-zh-tw-translator.md    # Example: EN→ZH-TW translator agent
-└── skills/
-    └── book-translation-guide.md       # Step-by-step workflow guide
+claude-skills-agents/
+├── agents/                    # Custom agents for specialized tasks
+│   └── markdown-zh-tw-translator.md
+├── skills/                    # Workflow guides and design principles
+│   ├── book-translation-guide.md
+│   └── information-software-design.md
+└── README.md
 ```
 
 ## Installation
 
-### Option 1: Ask Your Agent to Install (Recommended)
-
-Simply open Claude Code and say:
+### Option 1: Ask Claude Code to Install (Recommended)
 
 ```
-Install the book translation agent from https://github.com/madeyexz/book-translation-agent
+Install skills and agents from https://github.com/madeyexz/claude-skills-agents
 ```
 
-Your Claude Code agent will:
-1. Clone the repository
-2. Copy the agent and skill files to the correct locations
-3. Confirm the installation is complete
+Claude Code will clone the repo and copy files to the correct locations.
 
 ### Option 2: Manual Installation
 
-**Step 1**: Clone this repository
-
 ```bash
-git clone https://github.com/madeyexz/book-translation-agent.git
-cd book-translation-agent
-```
+git clone https://github.com/madeyexz/claude-skills-agents.git
+cd claude-skills-agents
 
-**Step 2**: Copy the agent file
-
-```bash
+# Install agents
 mkdir -p ~/.claude/agents
-cp agents/markdown-zh-tw-translator.md ~/.claude/agents/
-```
+cp agents/*.md ~/.claude/agents/
 
-**Step 3**: Copy the skill file
-
-```bash
+# Install skills
 mkdir -p ~/.claude/skills
-cp skills/book-translation-guide.md ~/.claude/skills/
-```
-
-**Step 4**: Verify installation
-
-```bash
-ls ~/.claude/agents/markdown-zh-tw-translator.md
-ls ~/.claude/skills/book-translation-guide.md
+cp skills/*.md ~/.claude/skills/
 ```
 
 ---
 
-## Quick Start
+## Skills
 
-### 1. Prepare Your Book
+### Information Software Design
 
-Ensure your book is in Markdown format with proper `#` headings:
+Design principles from Bret Victor's "Magic Ink" for building software that helps users **learn, understand, compare, and make decisions**.
 
-```markdown
-# Book Title
+**Core insight**: Ask "What can the user *learn*?" not "What can the user *do*?"
 
-## Chapter 1: Introduction
+**Use when designing**: dashboards, search results, calendars, recommendation systems, listings, or any interface where users seek answers.
 
-Content here...
+**Key principles**:
+- Infer context from environment and history; interaction is a last resort
+- Show enough data to answer questions without clicking
+- Arrange data spatially to enable comparison by eye, not memory
+- Minimize navigation (it's almost always pure excise)
 
-## Chapter 2: Getting Started
+### Book Translation Guide
 
-More content...
+A systematic workflow for translating entire books between any language pairs using Claude Code agents.
+
+**Workflow**:
+1. Analyze book structure (grep headings)
+2. Split into chapters (<60KB each)
+3. Batch translate (5 chapters at a time)
+4. Verify completeness (compare endings)
+
+**Tested on**:
+- 21 Lessons for the 21st Century (714 KB, 25 chapters)
+- Homo Deus (960 KB, 16 chapters)
+
+---
+
+## Agents
+
+### markdown-zh-tw-translator
+
+Translates markdown content to Traditional Chinese (Taiwan conventions).
+
+**Features**:
+- Preserves all markdown formatting
+- Keeps personal names in original language
+- Technical terms in bilingual format: 中文 (English)
+- Uses Taiwan conventions: 軟體, 程式, 資料, 網路
+
+**Usage**:
 ```
-
-### 2. Run the Translation
-
-In Claude Code, specify your source and target languages:
-
-```
-Translate the book at /path/to/book.md from English to Traditional Chinese using the book translation workflow.
-```
-
-Other examples:
-
-```
-Translate the book at /path/to/book.md from English to Japanese.
-```
-
-```
-Translate the book at /path/to/book.md from French to English.
-```
-
-```
-Translate the book at /path/to/book.md from German to Spanish.
+Translate this README.md to Traditional Chinese
 ```
 
 ---
 
-## Creating Custom Translator Agents
+## Creating New Skills & Agents
 
-The included `markdown-zh-tw-translator.md` is an example for English → Traditional Chinese. To create a translator for other language pairs:
+### Adding a Skill
 
-### 1. Copy and Rename the Template
+Create a markdown file in `skills/` with:
+- Clear purpose and when to use it
+- Step-by-step workflow or design principles
+- Examples and anti-patterns
+- Checklists where appropriate
 
-```bash
-cp ~/.claude/agents/markdown-zh-tw-translator.md ~/.claude/agents/markdown-ja-translator.md
-```
+### Adding an Agent
 
-### 2. Modify the Agent
+Create a markdown file in `agents/` with frontmatter:
 
-Edit the new file and change:
+```yaml
+---
+name: agent-name
+description: "When to use this agent..."
+tools: Bash, Read, Write, Edit, ...
+model: inherit
+---
 
-- `name`: e.g., `markdown-ja-translator`
-- `description`: Update for your language pair
-- Language-specific conventions in the prompt
-- Quality standards for your target language
-
-### Example: Japanese Translator Agent
-
-Key modifications for a Japanese translator:
-
-```markdown
-name: markdown-ja-translator
-description: "Translates markdown content to Japanese..."
-
-## Quality Standards
-1. Use appropriate politeness levels (敬語/丁寧語/普通体)
-2. Handle technical terms: カタカナ for loanwords, or 日本語 (English)
-3. Maintain natural Japanese sentence structure
-```
-
-### Example: Spanish Translator Agent
-
-Key modifications for a Spanish translator:
-
-```markdown
-name: markdown-es-translator
-description: "Translates markdown content to Spanish..."
-
-## Quality Standards
-1. Use appropriate formality (tú vs usted)
-2. Handle regional variations if needed (Spain vs Latin America)
-3. Technical terms: término en español (English term)
+[Agent instructions here]
 ```
 
 ---
 
-## Translation Quality Guidelines
+## Contributing
 
-General principles that apply to all languages:
-
-| Element | Handling |
-|---------|----------|
-| Personal names | Keep original (language-dependent exceptions apply) |
-| Technical terms | Bilingual format recommended: 翻譯 (Translation) |
-| Markdown | Preserve all formatting |
-| Code blocks | Never translate code |
-| Cultural references | Adapt appropriately for target audience |
-
----
-
-## Workflow Overview
-
-```
-book.md (Markdown source)
-    ↓
-Analyze Structure (grep headings)
-    ↓
-Split into Chapters (sed by line numbers)
-    ↓
-Check File Sizes (<60KB each)
-    ↓
-Batch Translate (5 chapters at a time)
-    ↓
-Verify Completeness (compare endings)
-    ↓
-Translated Book (multiple .md files)
-```
-
----
-
-## Tested Results
-
-| Book | Source | Target | Size | Chapters | Time |
-|------|--------|--------|------|----------|------|
-| 21 Lessons for the 21st Century | EN | ZH-TW | 714 KB | 25 | ~30 min |
-| Homo Deus | EN | ZH-TW | 960 KB | 16 | ~40 min |
-
----
-
-## Troubleshooting
-
-### Rate Limit Errors
-Reduce batch size from 5 to 3 chapters.
-
-### Token Limit Exceeded
-Split large chapters (>60KB) into smaller parts.
-
-### Incomplete Translation
-Re-run translation for the specific chapter; verify by comparing file endings.
-
-### Wrong Language Conventions
-Create a custom translator agent with specific rules for your target language/region.
+Pull requests welcome for:
+- New skills (design principles, workflows, guides)
+- New agents (translators, analyzers, generators)
+- Improvements to existing content
 
 ---
 
 ## License
 
-MIT License - Feel free to use, modify, and distribute.
-
-## Contributing
-
-Pull requests welcome! Especially:
-- New translator agents for different language pairs
-- Improvements to the workflow
-- Bug fixes and documentation updates
+MIT
