@@ -6,31 +6,37 @@ Skills and agents I use with AI coding assistants.
 
 ```
 ian-skills-agents/
-├── agents/                    # Custom agents for specialized tasks
+├── agents/
 │   └── markdown-zh-tw-translator.md
-├── skills/                    # Workflow guides and design principles
-│   ├── book-translation-guide.md
-│   ├── information-software-design.md
-│   └── pr-screenshot.md
+├── skills/
+│   ├── book-translation-guide/
+│   │   └── SKILL.md
+│   ├── information-software-design/
+│   │   └── SKILL.md
+│   └── pr-screenshot/
+│       └── SKILL.md
 └── README.md
 ```
 
 ## Installation
 
-### Install all skills & agents
+### Install all skills
 
 ```bash
 npx skills add madeyexz/ian-skills-agents
 ```
 
-### Install a specific skill or agent
+### Install a specific skill
 
 ```bash
-# Install only the PR Screenshot skill
+# PR Screenshot
 npx skills add madeyexz/ian-skills-agents/skills/pr-screenshot
 
-# Install only the translator agent
-npx skills add madeyexz/ian-skills-agents/agents/markdown-zh-tw-translator
+# Information Software Design
+npx skills add madeyexz/ian-skills-agents/skills/information-software-design
+
+# Book Translation Guide
+npx skills add madeyexz/ian-skills-agents/skills/book-translation-guide
 ```
 
 ### Compatible agents
@@ -55,13 +61,8 @@ DISABLE_TELEMETRY=1 npx skills add madeyexz/ian-skills-agents
 git clone https://github.com/madeyexz/ian-skills-agents.git
 cd ian-skills-agents
 
-# Install agents
-mkdir -p ~/.claude/agents
-cp agents/*.md ~/.claude/agents/
-
-# Install skills
-mkdir -p ~/.claude/skills
-cp skills/*.md ~/.claude/skills/
+# Copy all skills
+cp -r skills/*/ ~/.claude/skills/
 ```
 
 </details>
@@ -72,15 +73,17 @@ cp skills/*.md ~/.claude/skills/
 
 | Skill | Description |
 |-------|-------------|
-| **Information Software Design** | Design principles from Bret Victor's "Magic Ink" — ask "what can the user *learn*?" not "what can the user *do*?" |
-| **Book Translation Guide** | Workflow for translating entire books: split → batch translate → verify |
-| **PR Screenshot** | Add screenshots to PRs using browser automation — capture UI, save to docs/screenshot/, update PR body with GitHub CDN URLs |
+| **pr-screenshot** | Add screenshots to PRs using browser automation — capture UI, save to docs/screenshot/, update PR body with GitHub CDN URLs |
+| **information-software-design** | Design principles from Bret Victor's "Magic Ink" — ask "what can the user *learn*?" not "what can the user *do*?" |
+| **book-translation-guide** | Workflow for translating entire books: split → batch translate → verify |
 
 ## Agents
 
+Agents are not installable via `npx skills`. Copy manually to `~/.claude/agents/`.
+
 | Agent | Description |
 |-------|-------------|
-| **markdown-zh-tw-translator** | Markdown → Traditional Chinese (Taiwan conventions) |
+| **markdown-zh-tw-translator** | Translate markdown to Traditional Chinese (Taiwan conventions) |
 
 ---
 

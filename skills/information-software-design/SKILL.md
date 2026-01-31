@@ -1,3 +1,12 @@
+---
+name: information-software-design
+description: Design principles from Bret Victor's "Magic Ink" for building information software. Use when designing dashboards, search results, calendars, finance apps, or any interface where users seek answers rather than manipulate objects. Ask "what can the user learn?" not "what can the user do?"
+license: MIT
+metadata:
+  author: madeyexz
+  version: "1.0.0"
+---
+
 # Information Software Design
 
 A skill for designing information software based on Bret Victor's "Magic Ink" principles.

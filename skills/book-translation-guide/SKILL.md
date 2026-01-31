@@ -1,3 +1,12 @@
+---
+name: book-translation-guide
+description: Workflow for translating entire books using AI agents. Split markdown books into chapters, batch translate 5 at a time, and verify completeness. Works with any language pair.
+license: MIT
+metadata:
+  author: madeyexz
+  version: "1.0.0"
+---
+
 # Book Translation Guide for Agents
 
 ## Prerequisites
