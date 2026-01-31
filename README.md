@@ -10,7 +10,8 @@ ian-skills-agents/
 │   └── markdown-zh-tw-translator.md
 ├── skills/                    # Workflow guides and design principles
 │   ├── book-translation-guide.md
-│   └── information-software-design.md
+│   ├── information-software-design.md
+│   └── pr-screenshot.md
 └── README.md
 ```
 
@@ -37,6 +38,7 @@ cp skills/*.md ~/.claude/skills/
 |-------|-------------|
 | **Information Software Design** | Design principles from Bret Victor's "Magic Ink" — ask "what can the user *learn*?" not "what can the user *do*?" |
 | **Book Translation Guide** | Workflow for translating entire books: split → batch translate → verify |
+| **PR Screenshot** | Add screenshots to PRs using browser automation — capture UI, save to docs/screenshot/, update PR body with GitHub CDN URLs |
 
 ## Agents
 
