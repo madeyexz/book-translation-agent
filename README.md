@@ -17,6 +17,40 @@ ian-skills-agents/
 
 ## Installation
 
+### Install all skills & agents
+
+```bash
+npx skills add madeyexz/ian-skills-agents
+```
+
+### Install a specific skill or agent
+
+```bash
+# Install only the PR Screenshot skill
+npx skills add madeyexz/ian-skills-agents/skills/pr-screenshot
+
+# Install only the translator agent
+npx skills add madeyexz/ian-skills-agents/agents/markdown-zh-tw-translator
+```
+
+### Compatible agents
+
+Works with [20+ AI coding agents](https://skills.sh) including:
+- Claude Code
+- Cursor
+- Windsurf
+- Cline
+- GitHub Copilot
+
+### Disable telemetry (optional)
+
+```bash
+DISABLE_TELEMETRY=1 npx skills add madeyexz/ian-skills-agents
+```
+
+<details>
+<summary>Manual installation</summary>
+
 ```bash
 git clone https://github.com/madeyexz/ian-skills-agents.git
 cd ian-skills-agents
@@ -29,6 +63,8 @@ cp agents/*.md ~/.claude/agents/
 mkdir -p ~/.claude/skills
 cp skills/*.md ~/.claude/skills/
 ```
+
+</details>
 
 ---
 
