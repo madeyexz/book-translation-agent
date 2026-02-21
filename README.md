@@ -94,6 +94,8 @@ Translate this book to Traditional Chinese using:
 - skills/book-translation-guide/SKILL.md
 - agents/markdown-zh-tw-translator.md
 
+https://github.com/madeyexz/ian-skills-agents
+
 Input ZIP:
 /path/to/book-package.zip
 

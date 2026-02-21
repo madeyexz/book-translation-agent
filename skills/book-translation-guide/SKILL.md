@@ -21,8 +21,10 @@ Use this starter prompt when your input is a ZIP file containing a book PDF and 
 
 ```text
 Translate this book to Traditional Chinese using:
-- /skills/book-translation-guide/SKILL.md
-- /agents/markdown-zh-tw-translator.md
+- skills/book-translation-guide/SKILL.md
+- agents/markdown-zh-tw-translator.md
+
+https://github.com/madeyexz/ian-skills-agents
 
 Input ZIP:
 /path/to/book-package.zip
