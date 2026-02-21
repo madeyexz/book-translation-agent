@@ -87,6 +87,30 @@ Agents are not installable via `npx skills`. Copy manually to `~/.claude/agents/
 
 ---
 
+## Book Translation Prompt Example (ZIP: PDF + assets)
+
+```text
+Translate this book to Traditional Chinese using:
+- skills/book-translation-guide/SKILL.md
+- agents/markdown-zh-tw-translator.md
+
+Input ZIP:
+/path/to/book-package.zip
+
+Requirements:
+1. Unzip into a working folder.
+2. If the source is PDF, convert it to markdown first (chaptered `.md` files).
+3. Preserve markdown image attachments by keeping/copying asset folders and not changing image link targets.
+4. Split oversized markdown chapters to ~40-60KB each.
+5. Translate with sub-agents in batches of 5 files.
+6. Merge translated parts and verify completeness with tail checks.
+7. Output import-ready folders:
+   - Book-Chapters/
+   - Book-Chapters-ZH-TW/ (translated markdown + assets)
+```
+
+---
+
 ## License
 
 MIT
